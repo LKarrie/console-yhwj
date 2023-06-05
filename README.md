@@ -1,3 +1,39 @@
+# KubeSphere Console yhwj
+使用
+> docker pull lkarrie/ks-console-yhwj:3.3.1.4  
+
+为支持私库（harbor）基于官方3.3.1版本增加了一些功能
+
+1. 为工作负载快速更换harbor镜像的功能（和rancher一样）
+2. 自动搜索harbor镜像包括tags（最大数5）
+
+功能展示
+
+![KubeSphere Console](docs/yhwj/yhwj-1.png)
+![KubeSphere Console](docs/yhwj/yhwj-2.png)
+![KubeSphere Console](docs/yhwj/yhwj-3.png)
+![KubeSphere Console](docs/yhwj/yhwj-4.png)
+
+Todo
+
+1. 异步搜索harbor镜像
+2. 当有一个namespace 有多个 harbor镜像秘密，首次只能展示一个
+
+---
+
+Usage
+> docker pull lkarrie/ks-console-yhwj:3.3.1.4  
+
+Added some features based on official version 3.3.1 to support private libraries (Harbor)
+1. The ability to quickly replace Harbor images for workloads (similar to Rancher)
+2. Automatically search for Harbor images including tags (maximum of 5)
+
+Todo
+1. Asyn search for Harbor images
+2. When a namespace has multiple Harbor image secrets, only one can be displayed for the first time
+
+
+
 # KubeSphere Console
 
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kubesphere/console)

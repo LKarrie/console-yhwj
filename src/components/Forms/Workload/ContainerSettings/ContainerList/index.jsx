@@ -92,7 +92,7 @@ export default class ContainerList extends React.Component {
 
   renderContainers() {
     const { value, readOnlyList } = this.props
-
+    // console.log('render')
     return value.map(item => (
       <Card
         container={item}

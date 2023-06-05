@@ -25,6 +25,7 @@ import HpaStore from 'stores/workload/hpa'
 
 import PodsCard from 'components/Cards/Pods'
 import ContainerPortsCard from 'components/Cards/Containers/Ports'
+import ContainerImagesCard from 'components/Cards/Containers/Images'
 import HPACard from 'projects/components/Cards/HPA'
 import ReplicaCard from 'projects/components/Cards/Replica'
 import S2iBuilderCard from 'projects/components/Cards/S2iBuilder'
@@ -98,6 +99,19 @@ class ResourceStatus extends React.Component {
   handleScale = newReplicas => {
     const { cluster, namespace, name } = this.store.detail
     this.store.scale({ cluster, namespace, name }, newReplicas)
+  }
+
+  handleContainersChange = newContainers => {
+    // console.log('newContainers')
+    this.store.patch(this.store.detail, {
+      spec: {
+        template: {
+          spec: {
+            containers: newContainers,
+          },
+        },
+      },
+    })
   }
 
   handleDeleteHpa = () => {
@@ -199,6 +213,22 @@ class ResourceStatus extends React.Component {
     return <ContainerPortsCard ports={ports} loading={isLoading} />
   }
 
+  renderContainerImages() {
+    const detail = toJS(this.store.detail)
+    const { namespace } = this.props.match.params
+    const { isLoading } = this.store
+    // console.log('in')
+    // console.log(this.props)
+    return (
+      <ContainerImagesCard
+        detail={detail}
+        loading={isLoading}
+        onContainersChange={this.handleContainersChange}
+        namespace={namespace}
+      />
+    )
+  }
+
   renderPods() {
     return <PodsCard prefix={this.prefix} detail={this.store.detail} />
   }
@@ -207,7 +237,24 @@ class ResourceStatus extends React.Component {
     return (
       <div>
         {this.renderPlacement()}
-        {this.renderReplicaInfo()}
+        <div
+          style={{
+            display: 'flex',
+            alignContent: 'space-between',
+            alignItems: 'stretch',
+          }}
+        >
+          {this.renderReplicaInfo()}
+
+          <div
+            style={{
+              flexGrow: '1',
+            }}
+          >
+            {this.renderContainerImages()}
+          </div>
+        </div>
+
         {this.renderHpaConfig()}
         {this.renderContainerPorts()}
         {this.renderS2IBuilder()}

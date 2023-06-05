@@ -49,6 +49,12 @@
   transform: translateY(-50%);
 }
 
+@mixin vertical-not-cover-image-name {
+  position: absolute;
+  top: 33%;
+  transform: translateY(-50%);
+}
+
 @mixin middle {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,74 @@
+@import '~scss/variables';
+@import '~scss/mixins';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  height: 100%;
+  min-height: 144px;
+}
+
+.content {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: $card-bg-color;
+}
+
+.table {
+  width: 100%;
+
+  tr {
+    border-bottom: 4px solid $card-bg-color;
+  }
+
+  th,
+  td {
+    width: 25%;
+    line-height: 20px;
+  }
+
+  th {
+    padding: 4px 0 8px 20px;
+    color: $second-text-color;
+  }
+
+  td {
+    padding: 8px 0 8px 20px;
+    background-color: $white;
+  }
+}
+
+.wrapper {
+  padding: 12px;
+  border-radius: 4px;
+  background-color: $lightest;
+}
+
+.limits {
+  right: 140px;
+
+  // @include vertical-center;
+  @include vertical-not-cover-image-name;
+  @include TypographyTitleH6();
+
+  .limit {
+    :global .icon {
+      margin-right: 4px;
+    }
+
+    & + .limit {
+      margin-left: 14px;
+    }
+
+    & > span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.message {
+  span + span {
+    margin-left: 8px;
+  }
+}

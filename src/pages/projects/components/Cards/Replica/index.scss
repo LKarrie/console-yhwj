@@ -2,7 +2,9 @@
 
 .replica {
   display: flex;
-
+  width: 359px;
+  height: 100%;
+  margin-right: 12px;
   &Count {
     display: flex;
     justify-content: center;

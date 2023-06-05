@@ -93,6 +93,7 @@ export default class ContainerSetting extends React.Component {
   componentDidMount() {
     const { store } = this.props
     this.fetchData()
+    // 暂时不太清楚 这里获取的是什么
     this.fetchQuota()
     if (this.props.withService) {
       this.initService(this.formTemplate)
