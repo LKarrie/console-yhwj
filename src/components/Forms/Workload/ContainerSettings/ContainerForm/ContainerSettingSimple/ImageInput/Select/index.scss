@@ -3,7 +3,7 @@
 
 .wrapper {
   margin-right: 4px;
-  max-width: 150px;
+  // max-width: 150px;
   border-radius: 2px;
   background-color: $dark-color07;
   cursor: pointer;
@@ -50,8 +50,8 @@
   color: white;
 
   .label {
-    max-width: 125px;
-    min-width: 64px;
+    // max-width: 125px;
+    // min-width: 64px;
     @include ellipsis;
   }
 

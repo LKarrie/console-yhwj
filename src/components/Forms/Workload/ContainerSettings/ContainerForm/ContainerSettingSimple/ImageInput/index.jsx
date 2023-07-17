@@ -21,7 +21,7 @@ import PropTypes from 'prop-types'
 import { get, set, throttle, isObject, isEmpty } from 'lodash'
 import classnames from 'classnames'
 import moment from 'moment-mini'
-import { Form, Button, Icon, Loading, Tooltip } from '@kube-design/components'
+import { Form, Button, Icon, Loading } from '@kube-design/components'
 
 import { getDocsUrl } from 'utils'
 
@@ -191,6 +191,29 @@ export default class ImageSearch extends Component {
 
       if (status === 'failed') {
         if (message && message.includes('x509')) {
+          // return (
+          //   <div
+          //     className={classnames(
+          //       styles.selectedContent,
+          //       styles.emptyContent
+          //     )}
+          //   >
+          //     <Icon name="docker" className={styles.icon} />
+          //     <p className={styles.desc}>
+          //       {t('CERT_ERROR')}
+          //       <Tooltip content={this.renderWaringText}>
+          //         <span
+          //           className={styles.textConfirm}
+          //           onClick={this.getImageDetailNoCert}
+          //         >
+          //           {t('IGNORE_AND_RETRY')}
+          //         </span>
+          //       </Tooltip>
+          //     </p>
+          //   </div>
+          // )
+          this.getImageDetailNoCert
+        } else {
           return (
             <div
               className={classnames(
@@ -198,32 +221,13 @@ export default class ImageSearch extends Component {
                 styles.emptyContent
               )}
             >
-              <Icon name="docker" className={styles.icon} />
-              <p className={styles.desc}>
-                {t('CERT_ERROR')}
-                <Tooltip content={this.renderWaringText}>
-                  <span
-                    className={styles.textConfirm}
-                    onClick={this.getImageDetailNoCert}
-                  >
-                    {t('IGNORE_AND_RETRY')}
-                  </span>
-                </Tooltip>
-              </p>
+              <div>
+                <Icon name="docker" className={styles.icon} />
+                <p className={styles.desc}>{t('NO_IMAGE_FOUND')}</p>
+              </div>
             </div>
           )
         }
-
-        return (
-          <div
-            className={classnames(styles.selectedContent, styles.emptyContent)}
-          >
-            <div>
-              <Icon name="docker" className={styles.icon} />
-              <p className={styles.desc}>{t('NO_IMAGE_FOUND')}</p>
-            </div>
-          </div>
-        )
       }
 
       const {
@@ -231,13 +235,13 @@ export default class ImageSearch extends Component {
         createTime,
         exposedPorts = [],
         logo,
-        short_description,
+        // short_description,
       } = this.selectedImage
 
       const registry =
         image.indexOf('/') > -1 ? image.split('/')[0] : 'docker.io'
       const ports = exposedPorts.join('; ')
-      const _message = message || short_description
+      // const _message = message || short_description
 
       return (
         <div className={styles.selectedContent}>
@@ -264,7 +268,9 @@ export default class ImageSearch extends Component {
               </Button>
             ) : null}
           </div>
-          {_message ? <div className={styles.message}>{_message}</div> : null}
+          {/* {内网取消 取消展示信息} */}
+          {/* {_message ? <div className={styles.message}>{_message}</div> : null} */}
+
           <div className={styles.config}>
             <div className={styles.selectedInfo}>
               <Icon name="tag" className={styles.icon} />

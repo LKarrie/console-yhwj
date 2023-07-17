@@ -219,12 +219,14 @@ class ResourceStatus extends React.Component {
     const { isLoading } = this.store
     // console.log('in')
     // console.log(this.props)
+    // console.log(this.enableScaleReplica)
     return (
       <ContainerImagesCard
         detail={detail}
         loading={isLoading}
         onContainersChange={this.handleContainersChange}
         namespace={namespace}
+        enableEdit={this.enableScaleReplica}
       />
     )
   }

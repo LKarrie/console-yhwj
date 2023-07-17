@@ -1,11 +1,14 @@
 # KubeSphere Console yhwj
 使用
-> docker pull lkarrie/ks-console-yhwj:3.3.1.4  
+> docker pull lkarrie/ks-console-yhwj:3.3.1.8  
 
-为支持私库（harbor）基于官方3.3.1版本增加了一些功能
+为了更好的支持私库（harbor）基于官方3.3.1版本增加了一些功能
 
-1. 为工作负载快速更换harbor镜像的功能（和rancher一样）
-2. 自动搜索harbor镜像包括tags（最大数5）
+1. 增加工作负载快速更换镜像的功能
+2. 快速更换镜像的部分移除了docker hub image 搜索支持
+3. 自动搜索harbor镜像包括tags（最大数5）
+4. 忽略证书错误自动重试
+5. 默认harbor仓库名称由3个字符调整为2个
 
 功能展示
 
@@ -22,11 +25,14 @@ Todo
 ---
 
 Usage
-> docker pull lkarrie/ks-console-yhwj:3.3.1.4  
+> docker pull lkarrie/ks-console-yhwj:3.3.1.8  
 
 Added some features based on official version 3.3.1 to support private libraries (Harbor)
-1. The ability to quickly replace Harbor images for workloads (similar to Rancher)
-2. Automatically search for Harbor images including tags (maximum of 5)
+1. The ability to quickly replace Harbor images for workloads
+2. Added section removed Docker Hub Image search support
+3. Automatically search for Harbor images including tags (maximum of 5)
+4. Ignore certificate errors and automatically retry
+5. Adjust the default Harbor repository name from 3 characters to 2
 
 Todo
 1. Asyn search for Harbor images

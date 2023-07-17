@@ -286,6 +286,46 @@ export default class ContainerImages extends React.Component {
     return extras
   }
 
+  getExtras2(container) {
+    const limits = get(container, 'resources.limits', {})
+    const requests = get(container, 'resources.requests', {})
+    let extras
+    if (isEmpty(limits) && isEmpty(requests)) {
+      extras = (
+        <div className={styles.limits2}>
+          <Icon name="exclamation" />
+          <span>&nbsp;{t('NO_RESOURCE_LIMIT')}</span>
+        </div>
+      )
+    } else {
+      extras = (
+        <div className={styles.limits2}>
+          {(limits.cpu || requests.cpu) && (
+            <span className={styles.limit2}>
+              <Icon name="cpu" size={20} />
+              &nbsp;CPU:&nbsp;
+              <span>{`${requests.cpu ? cpuFormat(requests.cpu) : 0} – ${
+                limits.cpu ? cpuFormat(limits.cpu) : '∞'
+              }`}</span>
+            </span>
+          )}
+          {(limits.memory || requests.memory) && (
+            <span className={styles.limit2}>
+              <Icon name="memory" size={20} />
+              &nbsp;内存:&nbsp;
+              {`${
+                requests.memory ? `${memoryFormat(requests.memory)} MiB` : 0
+              } – ${
+                limits.memory ? `${memoryFormat(limits.memory)} MiB` : '∞'
+              }`}
+            </span>
+          )}
+        </div>
+      )
+    }
+    return extras
+  }
+
   renderContainers() {
     const containers = this.props.detail.containers
     const { showContainer, selectContainer } = this.state
@@ -294,22 +334,28 @@ export default class ContainerImages extends React.Component {
     }
 
     return containers.map((item, index) => (
-      <List.Item
-        key={index}
-        icon="docker"
-        title={item.name}
-        description={t('IMAGE_VALUE', { value: item.image })}
-        extras={this.getExtras(item)}
-        operations={
-          <Button
-            type="flat"
-            icon="pen"
-            onClick={() => {
-              this.handleEdit(item, index)
-            }}
-          />
-        }
-      />
+      <div className={styles.oneline}>
+        <div className={styles.limitsdiv}>{this.getExtras2(item)}</div>
+        <List.Item
+          className="psbcitem"
+          key={index}
+          icon="docker"
+          title={item.name}
+          description={t('IMAGE_VALUE', { value: item.image })}
+          // extras={this.getExtras(item)}
+          operations={
+            this.props.enableEdit ? (
+              <Button
+                type="flat"
+                icon="pen"
+                onClick={() => {
+                  this.handleEdit(item, index)
+                }}
+              />
+            ) : null
+          }
+        />
+      </div>
     ))
   }
 

@@ -60,7 +60,9 @@ export default class DropdownContent extends React.Component {
         if (this.registryUrl.includes('harbor') && !this.state.secretChange) {
           return 'harbor'
         }
-        return 'dockerHub'
+        // 内网取消 dockerhub
+        // return 'dockerHub'
+        return 'harbor'
       case 'harbor':
         return 'harbor'
       default:
@@ -130,11 +132,14 @@ export default class DropdownContent extends React.Component {
       value: item.value,
       url: item.url,
     }))
-    return [{ label: `Docker Hub`, value: '', url: '' }, ...options]
+    // 内网取消 dockerhub
+    // return [{ label: `Docker Hub`, value: '', url: '' }, ...options]
+    return [...options]
   }
 
   componentDidMount() {
-    this.fetchDockerList()
+    // 内网取消 dockerhub
+    // this.fetchDockerList()
   }
 
   componentWillUnmount() {

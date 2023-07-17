@@ -101,8 +101,8 @@ const handleHarborProxy = async ctx => {
     path = `${protocol}${harborUrl}/api/v2.0/search`
   } else if (requestUrl === 'artifacts') {
     // the rule of harbor project name and repository name
-    const rule = /^[a-zA-Z0-9][a-zA-Z0-9-._]+[a-zA-Z0-9]$/
-
+    // fix the rule , we allow name like bi
+    const rule = /^[a-zA-Z0-9][a-zA-Z0-9-._]+$/
     if (harborData.projectName && harborData.repositoryName) {
       // get projectName and repositoryName by rule
       const [projectName] = harborData.projectName.match(rule)

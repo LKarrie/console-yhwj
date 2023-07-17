@@ -72,3 +72,41 @@
     margin-left: 8px;
   }
 }
+
+.limits2 {
+  // right: 140px;
+  // @include vertical-center;
+  // @include vertical-not-cover-image-name;
+  display: flex;
+  flex-direction: column;
+  text-wrap: nowrap;
+  gap: 5px;
+
+  @include TypographyTitleH6();
+
+  .limit {
+    :global .icon {
+      margin-right: 4px;
+    }
+
+    & + .limit {
+      margin-left: 14px;
+    }
+
+    & > span {
+      vertical-align: middle;
+    }
+  }
+}
+
+.oneline {
+  display: flex;
+  gap: 10px;
+}
+
+.limitsdiv {
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #ccd3db;
+  padding: 10px;
+}
