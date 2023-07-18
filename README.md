@@ -20,7 +20,7 @@
 Todo
 
 1. 异步搜索harbor镜像
-2. 当有一个namespace 有多个 harbor镜像秘密，首次只能展示一个
+2. 当有一个namespace 有多个 harbor镜像密钥，首次只能展示一个
 
 ---
 
