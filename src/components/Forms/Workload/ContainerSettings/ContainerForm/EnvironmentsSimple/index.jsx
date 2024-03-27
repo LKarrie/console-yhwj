@@ -22,7 +22,6 @@ import { Button, Form } from '@kube-design/components'
 import { EnvironmentInputWithDisabled } from 'components/Inputs'
 import RootStore from 'stores/root'
 import { lazy } from 'utils'
-// import EnvironmentInputWithDisabled from '../../../../../Inputs/EnvironmentInputWithDisabled'
 import styles from './index.scss'
 
 const getActions = lazy(() =>
