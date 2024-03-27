@@ -135,7 +135,7 @@ export default class ArrayInput extends React.Component {
       ))
     }
 
-    return value.forEach((item, index) => {
+    return value.map((item, index) => {
       const envType = item.valueFrom && Object.keys(item.valueFrom)[0]
       if (envType !== 'fieldRef') {
         return (
@@ -151,6 +151,8 @@ export default class ArrayInput extends React.Component {
           />
         )
       }
+      // fieldRef cant edit
+      return <>todo</>
     })
     // return value.map((item, index) => (
     //   <Item
