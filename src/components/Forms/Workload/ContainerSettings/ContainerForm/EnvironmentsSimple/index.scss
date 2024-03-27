@@ -1,0 +1,12 @@
+@import '~scss/variables';
+
+.wrapper {
+  margin-top: 20px;
+  cursor: default;
+  :global {
+    .form-item .input,
+    .form-item .select {
+      max-width: unset;
+    }
+  }
+}

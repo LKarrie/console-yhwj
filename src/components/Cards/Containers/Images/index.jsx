@@ -301,8 +301,8 @@ export default class ContainerImages extends React.Component {
       extras = (
         <div className={styles.limits2}>
           {(limits.cpu || requests.cpu) && (
-            <span className={styles.limit2}>
-              <Icon name="cpu" size={20} />
+            <span className={styles.limit}>
+              <Icon name="cpu" size={18} style={{ marginRight: '6px' }} />
               &nbsp;CPU:&nbsp;
               <span>{`${requests.cpu ? cpuFormat(requests.cpu) : 0} – ${
                 limits.cpu ? cpuFormat(limits.cpu) : '∞'
@@ -310,7 +310,7 @@ export default class ContainerImages extends React.Component {
             </span>
           )}
           {(limits.memory || requests.memory) && (
-            <span className={styles.limit2}>
+            <span className={styles.limit}>
               <Icon name="memory" size={20} />
               &nbsp;内存:&nbsp;
               {`${

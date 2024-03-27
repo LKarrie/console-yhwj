@@ -1,6 +1,6 @@
 # KubeSphere Console yhwj
-使用
-> docker pull lkarrie/ks-console-yhwj:3.3.1.8  
+## 使用
+> docker pull lkarrie/ks-console-yhwj:3.3.1.9  
 
 为了更好的支持私库（harbor）基于官方3.3.1版本增加了一些功能
 
@@ -9,22 +9,84 @@
 3. 自动搜索harbor镜像包括tags（最大数5）
 4. 忽略证书错误自动重试
 5. 默认harbor仓库名称由3个字符调整为2个
+6. 增加快速编辑环境变量的功能
 
-功能展示
+## 功能展示
 
 ![KubeSphere Console](docs/yhwj/yhwj-1.png)
 ![KubeSphere Console](docs/yhwj/yhwj-2.png)
 ![KubeSphere Console](docs/yhwj/yhwj-3.png)
 ![KubeSphere Console](docs/yhwj/yhwj-4.png)
+![KubeSphere Console](docs/yhwj/yhwj-5.png)
+![KubeSphere Console](docs/yhwj/yhwj-6.png)
 
-Todo
+## Todo
 
 1. 异步搜索harbor镜像
-2. 当有一个namespace 有多个 harbor镜像密钥，首次只能展示一个
+
+## 已知问题
+
+1. 当有一个namespace有多个harbor镜像密钥，首次只能展示一个
+2. 对关闭或弃用chartmuseum的harbor环境，自动搜索最新harbor镜像功能将出现异常
+3. 快速编辑环境变量完成后，实际更新成功，但是页面数据更新存在延迟
+
+## 使用注意
+
+快速替换镜像功能中，展示匹配harbor密钥和仓库的部分暂不支持自动补全功能，直接输入镜像名称时需要补全对应的harbor私库地址
+
+例如：
+core.harbor.domain/bi/nginx:1.20.1 升级镜像版本时需要输入 core.harbor.domain/bi/nginx:1.20.2 而不是 bi/nginx:1.20.2 
+
+![KubeSphere Console](docs/yhwj/yhwj-7.png)
+
+## 本地开发
+开发相关基础环境设置如下
+
+### 基础
+```markdown
+node -v
+v14.16.1
+```
+
+### 配置调整
+本地调试修改 server/config.yaml (打包时需要恢复注释)
+```yaml
+  apiServer:
+    clientID: kubesphere
+    clientSecret: kubesphere
+    #url: http://ks-apiserver
+    #wsUrl: ws://ks-apiserver
+    url: http://192.168.202.60:30881
+    wsUrl: ws://192.168.202.60:30881
+```
+### 启动开发环境
+
+```bash
+npm run dev:client
+
+npm run dev:server
+```
+
+### 构建镜像
+> docker build -f build/Dockerfile -t lkarrie/ks-console-yhwj:3.3.1.9 .
+
+### 设置DEV K8S环境
+```bash
+kubectl -n kubesphere-system patch svc ks-apiserver -p '{"spec":{"type":"NodePort","ports":[{"port":80,"protocal":"TCP","targetPort":9090,"nodePort":30881}]}}'
+```
+### 默认信息
+
+访问地址
+
+http://192.168.202.60:30880/login
+
+用户 / 密码 
+
+admin/P@88w0rd
 
 ---
 
-Usage
+## Usage
 > docker pull lkarrie/ks-console-yhwj:3.3.1.8  
 
 Added some features based on official version 3.3.1 to support private libraries (Harbor)
@@ -33,12 +95,15 @@ Added some features based on official version 3.3.1 to support private libraries
 3. Automatically search for Harbor images including tags (maximum of 5)
 4. Ignore certificate errors and automatically retry
 5. Adjust the default Harbor repository name from 3 characters to 2
+6. Add the function of quickly editing environment variables
 
-Todo
+## Todo
 1. Asyn search for Harbor images
-2. When a namespace has multiple Harbor image secrets, only one can be displayed for the first time
 
-
+## Known issues
+1. When a namespace with multiple Harbor image keys, only one can be displayed at the first time
+2. The automatic search for the latest harbor image function cant used in harbor environments that disable or without harbor chartmuseum
+3. After quickly editing the environment variables, update is successful, but there is a delay in updating the page data
 
 # KubeSphere Console
 

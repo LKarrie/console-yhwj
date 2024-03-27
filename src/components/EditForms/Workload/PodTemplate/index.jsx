@@ -33,6 +33,7 @@ export default class PodTemplate extends Base {
   }
 
   render() {
+    // console.log("编辑容器")
     const { formRef, formProps, isFederated, isEdit } = this.props
     const { showContainer, selectContainer } = this.state
 

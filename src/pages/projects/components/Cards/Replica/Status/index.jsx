@@ -142,11 +142,14 @@ export default class ReplicaStatus extends React.Component {
   }
 
   render() {
-    const { theme, className, name, current } = this.props
+    const { theme, className, current } = this.props
     const { showConfirm, seconds, desire } = this.state
-    const nameText = t(name)
-    const currentText = t('REPLICAS_CURRENT')
-    const desireText = t('REPLICAS_DESIRED')
+    // const nameText = t(name)
+    // const currentText = t('REPLICAS_CURRENT')
+    // const desireText = t('REPLICAS_DESIRED')
+    const nameText = '实例'
+    const currentText = '当前实例数'
+    const desireText = '期望实例数'
 
     return (
       <div className={classnames(styles.card, className, styles[theme])}>

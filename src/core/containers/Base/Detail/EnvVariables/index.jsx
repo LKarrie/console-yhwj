@@ -20,17 +20,22 @@ import React from 'react'
 import { toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { isEmpty, get } from 'lodash'
+import { Notify } from '@kube-design/components'
 
 import EnvStore from 'stores/workload/env'
 
-import ContainerEnvCard from 'components/Cards/Containers/EnvVariables'
+import ContainerEnvCardEditor from 'components/Cards/Containers/EnvVariablesEditor'
 
 class EnvVariables extends React.Component {
   constructor(props) {
     super(props)
 
     this.envStore = new EnvStore()
-    this.fetchData()
+    this.fetchDataInit()
+  }
+
+  state = {
+    fetchLoading: false,
   }
 
   get module() {
@@ -47,6 +52,20 @@ class EnvVariables extends React.Component {
 
   get cluster() {
     return this.store.detail.cluster
+  }
+
+  get enabledActions() {
+    return globals.app.getActions({
+      module: this.module,
+      ...this.props.match.params,
+      project: this.props.match.params.namespace,
+    })
+  }
+
+  get enableEdit() {
+    return (
+      this.enabledActions.includes('edit') && !this.store.detail.isFedManaged
+    )
   }
 
   get containers() {
@@ -73,7 +92,7 @@ class EnvVariables extends React.Component {
     return []
   }
 
-  fetchData = () => {
+  fetchDataInit = () => {
     this.envStore.fetchList({
       namespace: this.namespace,
       cluster: this.cluster,
@@ -82,17 +101,56 @@ class EnvVariables extends React.Component {
     })
   }
 
+  fetchData = () => {
+    this.setState({ fetchLoading: true })
+    setTimeout(() => {
+      this.envStore.fetchList({
+        namespace: this.namespace,
+        cluster: this.cluster,
+        containers: this.containers,
+        initContainers: this.initContainers,
+      })
+      this.setState({ fetchLoading: false })
+    }, 300)
+  }
+
+  handleEnvChange = async (newContainers, callback) => {
+    try {
+      await this.store
+        .patch(this.store.detail, {
+          spec: {
+            template: {
+              spec: {
+                containers: [newContainers],
+              },
+            },
+          },
+        })
+        .then(() => {
+          callback()
+          // update container avoid show old data
+          this.fetchData()
+          Notify.success({ content: t('UPDATE_SUCCESSFUL') })
+        })
+    } catch (err) {
+      callback()
+    }
+  }
+
   render() {
     const { data, isLoading } = toJS(this.envStore.list)
-
+    const { fetchLoading } = this.state
     return (
       <div>
+        {/* --------PSBC-------- */}
         {data.map((container, index) => (
-          <ContainerEnvCard
+          <ContainerEnvCardEditor
             key={index}
             detail={container}
             expand={index === 0}
-            loading={isLoading}
+            loading={isLoading || fetchLoading}
+            onEnvChange={this.handleEnvChange}
+            enableEdit={this.enableEdit}
           />
         ))}
       </div>

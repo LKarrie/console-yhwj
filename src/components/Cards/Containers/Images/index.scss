@@ -87,15 +87,16 @@
   .limit {
     :global .icon {
       margin-right: 4px;
+      margin-bottom: 2px;
     }
 
-    & + .limit {
-      margin-left: 14px;
-    }
+    // & + .limit {
+    //   margin-left: 14px;
+    // }
 
-    & > span {
-      vertical-align: middle;
-    }
+    // & > span {
+    // vertical-align: middle;
+    // }
   }
 }
 

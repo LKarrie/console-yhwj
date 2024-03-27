@@ -193,7 +193,7 @@ export default class ContaineForm extends React.Component {
       containers,
     } = this.props
     const { containerType, formData } = this.state
-
+    // console.log("编辑容器3")
     return (
       <div className={classNames(styles.wrapper, className)}>
         <div className="h5">

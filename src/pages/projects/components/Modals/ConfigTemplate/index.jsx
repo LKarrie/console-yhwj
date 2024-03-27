@@ -38,7 +38,7 @@ export default class EditConfigTemplateModal extends React.Component {
 
   render() {
     const { module, ...rest } = this.props
-
+    // console.log("编辑")
     return (
       <EditModal
         title="EDIT_SETTINGS"

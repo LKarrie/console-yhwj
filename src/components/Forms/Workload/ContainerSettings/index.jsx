@@ -601,7 +601,7 @@ export default class ContainerSetting extends React.Component {
       limitRange,
       imageRegistries,
     }
-
+    // console.log("编辑容器2")
     return (
       <ContainerForm
         type={type}
